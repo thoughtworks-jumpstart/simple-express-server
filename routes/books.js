@@ -14,7 +14,6 @@ router.get('/:id', (req, res) => {
 
 router.post('/new', (req, res) => {
   const newBook = req.body
-  book.addNewBook(newBook)
   res.send(newBook)
 })
 
