@@ -17,7 +17,7 @@ const mockData = [
 
 describe("/books", () => {
   it("[GET] /books returns all books", () => {
-    book.getAllBooks.mockReturnValueOnce(mockData);
+    book.getAll.mockReturnValueOnce(mockData);
 
     return request(app)
       .get("/books")
@@ -35,7 +35,7 @@ describe("/books", () => {
   });
 
   it("[GET] /books/1 returns book with id 1", () => {
-    book.getBookById.mockReturnValueOnce(mockData[0]);
+    book.getById.mockReturnValueOnce(mockData[0]);
 
     return request(app)
       .get("/books/1")
@@ -52,12 +52,12 @@ describe("/books", () => {
       .expect(200)
       .expect({id: 456, title: "My first book", author: "Bob"})
       .expect(() => {
-        expect(book.addBook).toHaveBeenCalledTimes(1);
+        expect(book.add).toHaveBeenCalledTimes(1);
       });
   });
 
   it("[GET] /books?author=Melvin", () => {
-    book.filterBooks.mockReturnValueOnce([mockData[0]]);
+    book.filter.mockReturnValueOnce([mockData[0]]);
 
     return request(app)
       .get("/books")
@@ -67,7 +67,7 @@ describe("/books", () => {
   });
 
   it("[GET] /books?author=author that does not exist", () => {
-    book.filterBooks.mockReturnValueOnce([]);
+    book.filter.mockReturnValueOnce([]);
 
     return request(app)
       .get("/books")
@@ -77,7 +77,7 @@ describe("/books", () => {
   });
 
   it("[GET] /books?title=developer", () => {
-    book.filterBooks.mockReturnValueOnce([mockData[2]]);
+    book.filter.mockReturnValueOnce([mockData[2]]);
 
     return request(app)
       .get("/books")
@@ -89,7 +89,7 @@ describe("/books", () => {
   });
 
   it("[GET] /books?author=bob&title=developer", () => {
-    book.filterBooks.mockReturnValueOnce([mockData[3]]);
+    book.filter.mockReturnValueOnce([mockData[3]]);
 
     return request(app)
       .get("/books")

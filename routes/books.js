@@ -4,21 +4,21 @@ const book = require("../models/Book");
 
 router.get("/", (req, res) => {
   if (req.query.author || req.query.title) {
-    res.send(book.filterBooks(req.query));
+    res.send(book.filter(req.query));
   }
 
-  res.send(book.getAllBooks());
+  res.send(book.getAll());
 });
 
 router.get("/:id", (req, res) => {
   const id = Number(req.params.id);
-  const thisBook = book.getBookById(id);
+  const thisBook = book.getById(id);
   res.send(thisBook);
 });
 
 router.post("/new", (req, res) => {
   const newBook = req.body;
-  book.addBook(newBook);
+  book.add(newBook);
   res.send(newBook);
 });
 
