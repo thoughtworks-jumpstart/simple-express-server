@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "hoho": "echo hello",
     "start": "node index.js",
     "start:dev": "nodemon index.js",
+    "lint": "eslint .",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:all": "npm run lint && npm run test"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +18,9 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-jest": "^22.17.0",
     "jest": "^24.9.0",
     "nodemon": "^1.19.3",
     "supertest": "^4.0.2"
