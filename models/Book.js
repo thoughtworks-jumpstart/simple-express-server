@@ -38,9 +38,22 @@ class Book {
 
     return this.books.filter(book => {
       return keys.every(key => {
-        return book[key].includes(queries[key]);
+        const regex = new RegExp(queries[key], "gi");
+        return book[key].match(regex);
       });
     });
+  }
+
+  update(id, updatedBook) {
+    const index = this.books.findIndex(book => {
+      return book.id === id;
+    });
+
+    if (index === -1) {
+      throw new Error("Book does not exist, pal!");
+    }
+
+    this.books[index] = updatedBook;
   }
 }
 

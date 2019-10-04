@@ -22,4 +22,15 @@ router.post("/new", (req, res) => {
   res.send(newBook);
 });
 
+router.put("/:id", (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    const updatedBook = req.body;
+    book.update(id, updatedBook);
+    res.send(updatedBook);
+  } catch (error) {
+    res.status(404).send(error.message);
+  }
+});
+
 module.exports = router;

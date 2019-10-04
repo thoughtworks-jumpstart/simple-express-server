@@ -16,6 +16,10 @@ const mockData = [
 ];
 
 describe("/books", () => {
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
   it("[GET] /books returns all books", () => {
     book.getAll.mockReturnValueOnce(mockData);
 
@@ -102,5 +106,36 @@ describe("/books", () => {
           author: "Ashley"
         }
       ]);
+  });
+
+  it("[PUT] /books/:id returns 404 when id is not found", () => {
+    book.update.mockImplementationOnce(() => {
+      throw new Error("Book does not exist, pal!");
+    });
+
+    return request(app)
+      .put("/books/100")
+      .expect(404);
+  });
+
+  it("[PUT /books/1", () => {
+    const updatedBook = {
+      id: 1,
+      title: "My updated title",
+      author: "James"
+    };
+
+    return request(app)
+      .put("/books/1")
+      .send(updatedBook)
+      .expect(200)
+      .expect({
+        id: 1,
+        title: "My updated title",
+        author: "James"
+      })
+      .expect(() => {
+        expect(book.update).toHaveBeenCalledTimes(1);
+      });
   });
 });

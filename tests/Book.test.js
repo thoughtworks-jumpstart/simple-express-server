@@ -34,6 +34,12 @@ describe("Book", () => {
     ]);
   });
 
+  it("gets correct filtered results regardless of case sensitivity", () => {
+    expect(book.filter({author: "alice"})).toEqual([
+      {id: 123, title: "First book", author: "Alice"}
+    ]);
+  });
+
   it("gets filtered list of books by author when filterBooks() is called", () => {
     expect(book.filter({author: "Alice"})).toEqual([
       {id: 123, title: "First book", author: "Alice"}
@@ -51,5 +57,23 @@ describe("Book", () => {
     expect(book.filter(query)).toEqual([
       {id: 456, title: "Second book", author: "Bob"}
     ]);
+  });
+
+  it("updates book with updated book details", () => {
+    const updateBook = {
+      id: 123,
+      title: "Updated book title",
+      author: "New author"
+    };
+    book.update(123, updateBook);
+    expect(book.getById(123)).toEqual({
+      id: 123,
+      title: "Updated book title",
+      author: "New author"
+    });
+  });
+
+  it("does not update book when no book is found", () => {
+    expect(() => book.update(987, {})).toThrow();
   });
 });
